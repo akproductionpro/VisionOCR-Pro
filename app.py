@@ -1,4 +1,6 @@
 import os
+import threading
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from google import genai
@@ -32,7 +34,7 @@ def get_ocr_rules():
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     welcome_text = (
-        "👋 नमस्ते! मैं हूँ आपका **VisionOCR Pro** बॉट।\n\n"
+        "👋 नमस्ते! मैं हूँ आपका **VisionOCR Pro** बॉट。\n\n"
         "📸 मुझे कोई भी फोटो भेजें, और मैं उसमें से टेक्स्ट निकाल कर दूँगा!"
     )
     bot.reply_to(message, welcome_text, parse_mode="Markdown")
@@ -104,6 +106,17 @@ def process_photo(call):
         print(f"Error: {e}")
         bot.edit_message_text("⚠️ कुछ तकनीकी खराबी आ गई है। कृपया थोड़ी देर बाद दोबारा प्रयास करें।", chat_id=chat_id, message_id=call.message.message_id)
 
+# ==========================================
+# रेंडर (Render) के लिए डमी सर्वर
+# ==========================================
+def run_dummy_server():
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(('0.0.0.0', port), SimpleHTTPRequestHandler)
+    server.serve_forever()
+
 if __name__ == '__main__':
+    # डमी सर्वर को बैकग्राउंड में चालू करना ताकि रेंडर इसे बंद न करे
+    threading.Thread(target=run_dummy_server, daemon=True).start()
+    
+    # टेलीग्राम बॉट को चालू करना
     bot.infinity_polling()
-  
