@@ -8,19 +8,18 @@ from google.genai import types
 from io import BytesIO
 
 # ==========================================
-# ⚠️ आपकी डिटेल्स (SECRET KEYS)
+# ⚠️ आपकी डिटेल्स (Environment Variables से)
 # ==========================================
-GEMINI_API_KEY = "AQ.Ab8RN6I_6Q5nBid-Si9GmOQpEDMCZQkjag8-tQKWVEZDGGD79A"
-TELEGRAM_BOT_TOKEN = "8642925384:AAEDb7EtOUpX5cQ_sxI_snbWxOBNC68NSnM"
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 
 # बॉट और जैमिनी क्लाइंट को चालू करना
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
-ai_client = genai.Client(api_key=GEMINI_API_KEY)
+ai_client = genai.Client()
 
 # यूज़र की भेजी गई फोटो को थोड़ी देर याद रखने के लिए
 user_photos = {}
 
-print("VisionOCR Pro (Direct Gemini) सफलतापूर्वक चालू हो गया है...")
+print("VisionOCR Pro (Direct Gemini) सफलतापूर्वक चालू हो गया है...", flush=True)
 
 # नियमों को rules.txt से पढ़ने के लिए एक फंक्शन
 def get_ocr_rules():
@@ -103,7 +102,7 @@ def process_photo(call):
         del user_photos[chat_id]
         
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error: {e}", flush=True)
         bot.edit_message_text("⚠️ कुछ तकनीकी खराबी आ गई है। कृपया थोड़ी देर बाद दोबारा प्रयास करें।", chat_id=chat_id, message_id=call.message.message_id)
 
 # ==========================================
@@ -120,3 +119,4 @@ if __name__ == '__main__':
     
     # टेलीग्राम बॉट को चालू करना
     bot.infinity_polling()
+        
