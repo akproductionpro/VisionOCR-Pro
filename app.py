@@ -10,7 +10,7 @@ from io import BytesIO
 # ==========================================
 # ⚠️ आपकी डिटेल्स (SECRET KEYS)
 # ==========================================
-GEMINI_API_KEY = "AQ.Ab8RN6JTgcRLzqctFVkUnpaT9afxsHAXqwCzH4aU1EVVUkbvHQ"
+GEMINI_API_KEY = "AQ.Ab8RN6I_6Q5nBid-Si9GmOQpEDMCZQkjag8-tQKWVEZDGGD79A"
 TELEGRAM_BOT_TOKEN = "8642925384:AAEDb7EtOUpX5cQ_sxI_snbWxOBNC68NSnM"
 
 # बॉट और जैमिनी क्लाइंट को चालू करना
