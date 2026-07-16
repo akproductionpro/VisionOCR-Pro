@@ -11,10 +11,11 @@ from io import BytesIO
 # ⚠️ आपकी डिटेल्स (Environment Variables से)
 # ==========================================
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
-# बॉट और जैमिनी क्लाइंट को चालू करना
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
-ai_client = genai.Client()
+ai_client = genai.Client(api_key=GEMINI_API_KEY)
+
 
 # यूज़र की भेजी गई फोटो को थोड़ी देर याद रखने के लिए
 user_photos = {}
