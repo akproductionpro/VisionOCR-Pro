@@ -87,7 +87,7 @@ def process_photo(call):
         # जैमिनी को इमेज भेजना
                 # जैमिनी को इमेज भेजना
         response = ai_client.models.generate_content(
-            model='gemini-2.0-flash',
+            model='gemini-1.5-flash',
             contents=[
                 types.Part.from_bytes(data=image_bytes, mime_type='image/jpeg'),
                 prompt
